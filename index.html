@@ -310,6 +310,9 @@
         #checkout-page {
             /* This section will be hidden/shown by JS */
             padding-top: 80px; /* Account for fixed navigation */
+            max-width: 900px; /* Limit width */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto; /* Center horizontally */
         }
 
         .checkout-section {
@@ -375,12 +378,12 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#home" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium" data-nav-target="main">Home</a>
-                        <a href="#products" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium" data-nav-target="main">Hemp Products</a>
-                        <a href="#clothing" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium" data-nav-target="main">Clothing</a>
-                        <a href="#accessories" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium" data-nav-target="main">Accessories</a>
+                        <a href="#home" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium nav-link" data-nav-target="main">Home</a>
+                        <a href="#products" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium nav-link" data-nav-target="main">Hemp Products</a>
+                        <a href="#clothing" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium nav-link" data-nav-target="main">Clothing</a>
+                        <a href="#accessories" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium nav-link" data-nav-target="main">Accessories</a>
                         <a href="blog.html" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium" data-nav-target="main">Blog</a>
-                        <a href="#about" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium" data-nav-target="main">About</a>
+                        <a href="#about" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium nav-link" data-nav-target="main">About</a>
                         <!-- Cart button (Desktop) -->
                         <button id="cart-button-desktop" class="bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition relative flex items-center">
                             <i class="fas fa-shopping-cart mr-2"></i>Cart
@@ -398,12 +401,12 @@
         </div>
         <!-- Mobile menu content (hidden by default, controlled by JS) -->
         <div id="mobile-menu" class="md:hidden bg-white shadow-lg py-2 transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-            <a href="#home" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800" data-nav-target="main">Home</a>
-            <a href="#products" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800" data-nav-target="main">Hemp Products</a>
-            <a href="#clothing" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800" data-nav-target="main">Clothing</a>
-            <a href="#accessories" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800" data-nav-target="main">Accessories</a>
+            <a href="#home" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800 nav-link" data-nav-target="main">Home</a>
+            <a href="#products" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800 nav-link" data-nav-target="main">Hemp Products</a>
+            <a href="#clothing" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800 nav-link" data-nav-target="main">Clothing</a>
+            <a href="#accessories" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800 nav-link" data-nav-target="main">Accessories</a>
             <a href="blog.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800" data-nav-target="main">Blog</a>
-            <a href="#about" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800" data-nav-target="main">About</a>
+            <a href="#about" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800 nav-link" data-nav-target="main">About</a>
             <!-- Cart button (Mobile) -->
             <button id="cart-button-mobile" class="w-full text-left bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition mt-2 mx-auto block max-w-[calc(100%-2rem)] relative flex items-center justify-center">
                 <i class="fas fa-shopping-cart mr-2"></i>Cart
@@ -1593,15 +1596,30 @@
                 });
 
                 // Close mobile menu when a link is clicked
-                mobileMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.style.maxHeight = "0px";
-                        // If it's a main content navigation link, scroll to it
-                        if (link.dataset.navTarget === 'main') {
-                            smoothScrollTo(link.getAttribute('href').substring(1));
+                // Added a common class 'nav-link' to all navigation links for easier selection
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault(); // Prevent default anchor link behavior
+                        if (mobileMenu) { // Check if mobileMenu exists before trying to access its style
+                            mobileMenu.style.maxHeight = "0px"; // Close mobile menu
+                        }
+                        
+                        // Always go back to main content view first
+                        if (checkoutPage) {
+                            checkoutPage.classList.add('hidden');
+                        }
+                        if (mainContent) {
+                            mainContent.classList.remove('hidden');
+                        }
+
+                        // Then smooth scroll to the target section within main content
+                        const targetId = link.getAttribute('href').substring(1);
+                        if (targetId) { // Ensure targetId is not empty (e.g., for 'blog.html' link)
+                            smoothScrollTo(targetId);
                         }
                     });
                 });
+
                 window.addEventListener('resize', () => {
                     if (mobileMenu.style.maxHeight !== '0px' && mobileMenu.style.maxHeight !== '') {
                         mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
