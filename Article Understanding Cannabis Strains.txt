@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Cannabis Strains: Sativa, Indica, & Hybrid Effects - Kingkush Blog</title>
+    <meta name="description" content="Learn the differences between Sativa, Indica, and Hybrid cannabis strains. Explore their unique effects, terpene profiles, and how to choose the right strain for your needs.">
+    <meta name="keywords" content="cannabis strains, Sativa, Indica, Hybrid, cannabis effects, terpene profiles, strain guide, cannabis types, recreational cannabis, medicinal cannabis">
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a5f1a 0%, #2d8f2d 50%, #1a5f1a 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Consistent with blog.html) -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 mr-2" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Cpath d=\'M20 70h60l-5-30-15 10-10-20-10 20-15-10z\' fill=\'%23fbbf24\'/%3E%3C/svg%3E'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+                        <span class="text-2xl font-bold text-green-800">Kingkush</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html#home" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Home</a>
+                        <a href="index.html#products" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Hemp Products</a>
+                        <a href="index.html#clothing" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Clothing</a>
+                        <a href="index.html#accessories" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Accessories</a>
+                        <a href="blog.html" class="text-green-600 px-3 py-2 font-medium border-b-2 border-green-600">Blog</a>
+                        <a href="index.html#about" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">About</a>
+                        <button class="bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                            <i class="fas fa-shopping-cart mr-2"></i>Shop Now
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-green-800">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg py-2 transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+            <a href="index.html#home" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Home</a>
+            <a href="index.html#products" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Hemp Products</a>
+            <a href="index.html#clothing" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Clothing</a>
+            <a href="index.html#accessories" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Accessories</a>
+            <a href="blog.html" class="block px-4 py-2 text-green-600 font-semibold hover:bg-gray-100 hover:text-green-800">Blog</a>
+            <a href="index.html#about" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">About</a>
+            <button class="w-full text-left bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition mt-2 mx-auto block max-w-[calc(100%-2rem)]">
+                <i class="fas fa-shopping-cart mr-2"></i>Shop Now
+            </button>
+        </div>
+    </nav>
+
+    <!-- Article Content -->
+    <section class="py-20 bg-gray-50 pt-32">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg p-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-6">Understanding Cannabis Strains: Sativa, Indica, & Hybrid Effects</h1>
+            <p class="text-gray-600 text-sm mb-6">Published on June 15, 2025 by Kingkush Team</p>
+            
+            <img src="https://placehold.co/800x400/1a5f1a/ffffff?text=Cannabis+Strains" alt="Cannabis Strains" class="w-full rounded-lg mb-8 shadow-md">
+
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                The world of cannabis is incredibly diverse, with thousands of unique strains, each offering a distinct combination of effects, flavors, and aromas. While modern science is revealing the complexity of cannabinoids and terpenes, a traditional and still widely used method of categorization is by grouping strains into three main types: Sativa, Indica, and Hybrid. Understanding these classifications can help you choose the right cannabis product for your desired experience.
+            </p>
+
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Sativa Strains: Uplifting and Energetic</h2>
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                Sativa plants are typically tall and thin with long, narrow leaves, thriving in warmer climates with longer growing seasons. Their effects are often described as cerebral and uplifting.
+            </p>
+            <ul class="list-disc list-inside text-lg text-gray-800 mb-6 pl-4 leading-relaxed">
+                <li class="mb-2">
+                    <strong>Typical Effects:</strong> Energizing, uplifting, creativity-enhancing, focus-promoting, mood-boosting. Often preferred for daytime use.
+                </li>
+                <li class="mb-2">
+                    <strong>Medical Applications:</strong> May help with fatigue, depression, attention deficit disorders, and mood enhancement.
+                </li>
+                <li>
+                    <strong>Common Terpenes:</strong> Often high in Limonene (citrusy, uplifting), Pinene (pine, alertness), and Caryophyllene (spicy, anti-inflammatory).
+                </li>
+            </ul>
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                <em>Examples:</em> Sour Diesel, Jack Herer, Green Crack.
+            </p>
+
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Indica Strains: Relaxing and Calming</h2>
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                Indica plants are generally short and bushy with wide, broad leaves, originating from colder, harsher climates. They are renowned for their relaxing and sedative effects.
+            </p>
+            <ul class="list-disc list-inside text-lg text-gray-800 mb-6 pl-4 leading-relaxed">
+                <li class="mb-2">
+                    <strong>Typical Effects:</strong> Relaxing, sedating, pain-relieving, appetite-stimulating, sleep-inducing. Often favored for evening or nighttime use.
+                </li>
+                <li class="mb-2">
+                    <strong>Medical Applications:</strong> Commonly used for insomnia, chronic pain, muscle spasms, anxiety, and appetite loss.
+                </li>
+                <li>
+                    <strong>Common Terpenes:</strong> Often high in Myrcene (earthy, sedative), Linalool (floral, calming), and Humulene (hoppy, anti-inflammatory).
+                </li>
+            </ul>
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                <em>Examples:</em> Granddaddy Purple, Northern Lights, Hindu Kush.
+            </p>
+
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Hybrid Strains: The Best of Both Worlds</h2>
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                Hybrid strains are created by cross-breeding Sativa and Indica plants, resulting in a combination of characteristics and effects. The ratio of Sativa to Indica genetics dictates whether a hybrid leans more towards one side or offers a balanced experience.
+            </p>
+            <ul class="list-disc list-inside text-lg text-gray-800 mb-6 pl-4 leading-relaxed">
+                <li class="mb-2">
+                    <strong>Typical Effects:</strong> Can be Sativa-dominant (more energizing), Indica-dominant (more relaxing), or balanced (offering a mix of both).
+                </li>
+                <li class="mb-2">
+                    <strong>Medical Applications:</strong> Hybrids are highly versatile and can be tailored to address a wide range of medical conditions, offering nuanced effects.
+                </li>
+                <li>
+                    <strong>Customization:</strong> Breeders can create specific effects by carefully selecting parent strains, making hybrids very popular.
+                </li>
+            </ul>
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                <em>Examples:</em> OG Kush, Blue Dream, Girl Scout Cookies.
+            </p>
+
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Beyond Sativa/Indica: The Role of Terpenes</h2>
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                While Sativa and Indica labels provide a useful starting point, modern research emphasizes the critical role of <a href="article-entourage.html" class="text-green-600 hover:underline">terpenes</a> (aromatic compounds) and the synergistic "entourage effect" in shaping a strain's overall impact. The unique blend of cannabinoids and terpenes in each strain creates its distinct profile, often overriding traditional Sativa/Indica expectations.
+            </p>
+
+            <p class="text-lg text-gray-800 mb-6 leading-relaxed">
+                Ultimately, exploring different strains is a personal journey. Pay attention to how different varieties affect you, and consider their terpene profiles to find the perfect match for your needs and preferences.
+            </p>
+
+            <div class="mt-8 pt-6 border-t border-gray-200 text-sm text-gray-600">
+                <p class="font-semibold mb-2">Tags:</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-gray-200 px-2 py-1 rounded">#CannabisStrains</span>
+                    <span class="bg-gray-200 px-2 py-1 rounded">#SativaVsIndica</span>
+                    <span class="bg-gray-200 px-2 py-1 rounded">#Terpenes</span>
+                    <span class="bg-gray-200 px-2 py-1 rounded">#HybridStrains</span>
+                    <span class="bg-gray-200 px-2 py-1 rounded">#StrainGuide</span>
+                    <span class="bg-gray-200 px-2 py-1 rounded">#CannabisEffects</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Consistent with blog.html) -->
+    <footer class="bg-gray-900 text-gray-300 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+            <!-- Column 1: Brand Info -->
+            <div>
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 mr-2" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Cpath d=\'M20 70h60l-5-30-15 10-10-20-10 20-15-10z\' fill=\'%23fbbf24\'/%3E%3C/svg%3E'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+                    <span class="text-2xl font-bold text-yellow-400">Kingkush</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-6">Experience the complete Kingkush lifestyle with premium hemp products and exclusive streetwear.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                </div>
+            </div>
+
+            <!-- Column 2: Hemp Products -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Hemp Products</h4>
+                <ul class="space-y-3">
+                    <li><a href="index.html#products" class="hover:text-white transition text-sm">CBD Oils</a></li>
+                    <li><a href="index.html#products" class="hover:text-white transition text-sm">Hemp Gummies</a></li>
+                    <li><a href="index.html#products" class="hover:text-white transition text-sm">Topical Creams</a></li>
+                    <li><a href="index.html#products" class="hover:text-white transition text-sm">Capsules</a></li> 
+                    <li><a href="index.html#products" class="hover:text-white transition text-sm">Pet Products</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Clothing -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Clothing</h4>
+                <ul class="space-y-3">
+                    <li><a href="index.html#clothing" class="hover:text-white transition text-sm">Hemp Collection</a></li>
+                    <li><a href="index.html#clothing" class="hover:text-white transition text-sm">Men's Apparel</a></li>
+                    <li><a href="index.html#clothing" class="hover:text-white transition text-sm">Women's Collection</a></li>
+                    <li><a href="index.html#clothing" class="hover:text-white transition text-sm">Hoodies & Sweatshirts</a></li>
+                    <li><a href="index.html#clothing" class="hover:text-white transition text-sm">T-Shirts & Tanks</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Accessories -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Accessories</h4>
+                <ul class="space-y-3">
+                    <li><a href="index.html#accessories" class="hover:text-white transition text-sm">Snapback Caps</a></li>
+                    <li><a href="index.html#accessories" class="hover:text-white transition text-sm">Chain Necklaces</a></li>
+                    <li><a href="index.html#accessories" class="hover:text-white transition text-sm">Coffee Mugs</a></li>
+                    <li><a href="index.html#accessories" class="hover:text-white transition text-sm">Limited Drops</a></li>
+                    <li><a href="index.html#accessories" class="hover:text-white transition text-sm">Gift Sets</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 5: Support -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Support</h4>
+                <ul class="space-y-3">
+                    <li><a href="index.html#contact-us" class="hover:text-white transition text-sm">Contact Us</a></li>
+                    <li><a href="index.html#size-guide" class="hover:text-white transition text-sm">Size Guide</a></li>
+                    <li><a href="index.html#shipping-info" class="hover:text-white transition text-sm">Shipping Info</a></li>
+                    <li><a href="index.html#returns" class="hover:text-white transition text-sm">Returns</a></li>
+                    <li><a href="index.html#lab-results" class="hover:text-white transition text-sm">Lab Results</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500 text-sm">
+            &copy; 2025 Kingkush. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Mobile menu JavaScript (consistent with blog.html) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    if (mobileMenu.style.maxHeight === '0px' || mobileMenu.style.maxHeight === '') {
+                        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                    } else {
+                        mobileMenu.style.maxHeight = "0px";
+                    }
+                });
+
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.style.maxHeight = "0px";
+                    });
+                });
+                window.addEventListener('resize', () => {
+                    if (mobileMenu.style.maxHeight !== '0px' && mobileMenu.style.maxHeight !== '') {
+                        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
