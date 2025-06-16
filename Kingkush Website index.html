@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kingkush - Premium Hemp Products & Lifestyle Clothing</title>
+    <!-- Meta Description for SEO -->
+    <meta name="description" content="Discover Kingkush's premium selection of lab-tested hemp products, stylish streetwear, and lifestyle accessories. Experience quality, wellness, and urban fashion. Shop now!">
+    <meta name="keywords" content="Kingkush, hemp products, CBD oil, CBD gummies, topical cream, cannabis blog, cannabis history, cannabis benefits, cannabis remedies, cooking with cannabis, growing cannabis, cannabis strains, CBD wellness, urban fashion, streetwear, lab tested CBD">
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a5f1a 0%, #2d8f2d 50%, #1a5f1a 100%);
+        }
+        .clothing-gradient {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #1f2937 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .hemp-leaf {
+            /* This custom SVG background for hemp leaf might be redundant if using Font Awesome */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10c-5 10-15 15-25 20 5 5 15 5 25 0 10 5 20 0 25 0-10-5-20-10-25-20z' fill='%23059669'/%3E%3C/svg%3E");
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .crown-icon {
+            /* This custom SVG background for crown might be redundant if using Font Awesome */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20 70h60l-5-30-15 10-10-20-10 20-15-10z' fill='%23fbbf24'/%3E%3C/svg%3E");
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .product-image-container {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden; /* Ensures image doesn't spill out if using object-fit */
+        }
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .product-image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .red-variant { background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); }
+        .yellow-variant { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); }
+        .green-variant { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
+        .dark-green-variant { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); }
+        .black-variant { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); }
+
+        /* Styles for the "Added to cart" message */
+        #cart-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #059669; /* Green background */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 1000;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #cart-message.show {
+            opacity: 1;
+        }
+
+        /* Styles for the Image Modal Pop-up */
+        #image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Ensure it's on top of everything */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            /* Removed padding here as it was causing issues with image sizing */
+        }
+
+        #image-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #modal-image {
+            max-width: calc(100% - 40px); /* Leave space for padding/close button on both sides */
+            max-height: calc(100% - 40px); /* Leave space for padding/close button on top/bottom */
+            object-fit: contain; /* Ensures the image fits within the bounds without cropping */
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Soft shadow for the image */
+            margin: 20px; /* Ensures space around the image from modal edges */
+        }
+
+        #close-modal {
+            position: absolute;
+            top: 20px; /* Position relative to the viewport/modal overlay */
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.2); /* Slightly visible close button */
+            color: white;
+            border: none;
+            border-radius: 50%; /* Circular button */
+            width: 40px;
+            height: 40px;
+            font-size: 2rem; /* Larger for touch targets */
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            z-index: 10000; /* Above the image */
+        }
+
+        #close-modal:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        @media (min-width: 768px) {
+            #close-modal {
+                top: 30px; /* More space on desktop */
+                right: 30px; /* More space on desktop */
+                width: 50px;
+                height: 50px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="crown-icon w-8 h-8 mr-2"></div>
+                        <span class="text-2xl font-bold text-green-800">Kingkush</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Home</a>
+                        <a href="#products" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Hemp Products</a>
+                        <a href="#clothing" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Clothing</a>
+                        <a href="#accessories" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Accessories</a>
+                        <a href="blog.html" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">Blog</a>
+                        <a href="#about" class="text-gray-700 hover:text-green-800 px-3 py-2 font-medium">About</a>
+                        <button class="bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                            <i class="fas fa-shopping-cart mr-2"></i>Shop Now
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-green-800">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu content (hidden by default, controlled by JS) -->
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg py-2 transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+            <a href="#home" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Home</a>
+            <a href="#products" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Hemp Products</a>
+            <a href="#clothing" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Clothing</a>
+            <a href="#accessories" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Accessories</a>
+            <a href="blog.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">Blog</a>
+            <a href="#about" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-green-800">About</a>
+            <button class="w-full text-left bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition mt-2 mx-auto block max-w-[calc(100%-2rem)]">
+                <i class="fas fa-shopping-cart mr-2"></i>Shop Now
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg pt-20 pb-16 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center bg-green-800 bg-opacity-20 rounded-full px-4 py-2 mb-6">
+                        <i class="fas fa-crown text-yellow-400 mr-2"></i>
+                        <span class="text-sm font-medium">#1 Hemp Lifestyle Brand</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Premium Hemp Products & 
+                        <span class="text-yellow-400">Lifestyle Apparel</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-green-100 leading-relaxed">
+                        Experience the complete Kingkush lifestyle with premium hemp products and exclusive streetwear. Quality, style, and wellness combined.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <!-- Shop Collection Button -->
+                        <button id="shop-collection-button" class="bg-yellow-400 text-green-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition pulse-animation">
+                            <i class="fas fa-shopping-bag mr-2"></i>Shop Collection
+                        </button>
+                        <!-- View Clothing Button -->
+                        <button id="view-clothing-button" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-green-800 transition">
+                            <i class="fas fa-tshirt mr-2"></i>View Clothing
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">50K+</div>
+                            <div class="text-green-200 text-sm">Happy Customers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">100%</div>
+                            <div class="text-green-200 text-sm">Lab Tested</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">5★</div>
+                            <div class="text-green-200 text-sm">Average Rating</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 border border-white border-opacity-20">
+                        <div class="text-center">
+                            <!-- Changed to fas fa-percentage for a discount feel -->
+                            <div class="crown-icon w-24 h-24 mx-auto mb-6 bg-yellow-400 rounded-full flex items-center justify-center">
+                                <i class="fas fa-percentage text-green-800 text-4xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Limited Time Offer</h3>
+                            <p class="text-green-100 mb-6">Get 30% off your first order + Free shipping on orders over $75</p>
+                            <div class="text-center">
+                                <div class="text-sm text-green-200 mb-2">Offer expires in:</div>
+                                <div class="flex justify-center space-x-4 text-yellow-400 font-bold">
+                                    <div><span class="text-2xl" id="hours">00</span><br><span class="text-xs">Hours</span></div>
+                                    <div><span class="text-2xl" id="minutes">00</span><br><span class="text-xs">Minutes</span></div>
+                                    <div><span class="text-2xl" id="seconds">00</span><br><span class="text-xs">Seconds</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Hemp Products -->
+    <section id="products" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Premium Hemp Collection</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover our carefully curated selection of premium hemp products, all third-party lab tested for purity and potency.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Hemp Product 1: Premium CBD Oil 1000mg -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center product-image-container">
+                        <img src="https://imgur.com/4QHA3J7.jpg" alt="Premium CBD Oil 1000mg 30ml" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">Premium CBD Oil 1000mg</h3>
+                            <span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full">Best Seller</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Full-spectrum CBD oil for daily wellness. 1000mg, 30ml bottle.</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(1,247 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through">$89.99</span>
+                                <span class="text-2xl font-bold text-green-600 ml-2">$62.99</span>
+                            </div>
+                            <button class="add-to-cart-button bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW Hemp Product: Premium CBD Oil 600mg -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-green-300 to-green-500 flex items-center justify-center product-image-container">
+                        <img src="https://imgur.com/phdj7ML.jpg" alt="Premium CBD Oil 600mg 30ml" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">Premium CBD Oil 600mg</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">New Potency</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Full-spectrum CBD oil for daily wellness. 600mg, 30ml bottle.</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(750 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through">$69.99</span>
+                                <span class="text-2xl font-bold text-green-600 ml-2">$49.99</span>
+                            </div>
+                            <button class="add-to-cart-button bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hemp Product 2: Hemp Gummies 750mg (25 count) -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center product-image-container">
+                        <img src="https://imgur.com/2w5y3bL.jpg" alt="Hemp Gummies 750mg 25 Count" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">Hemp Gummies 750mg (25ct)</h3>
+                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full">Popular</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Delicious hemp gummies for relaxation. 25mg per gummy, 25 count.</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(892 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through">$49.99</span>
+                                <span class="text-2xl font-bold text-green-600 ml-2">$34.99</span>
+                            </div>
+                            <button class="add-to-cart-button bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW Hemp Product: Hemp Gummies 900mg (60 count) -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-blue-300 to-blue-500 flex items-center justify-center product-image-container">
+                        <img src="https://imgur.com/G6waSYR.jpg" alt="Hemp Gummies 900mg 60 Count" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">Hemp Gummies 900mg (60ct)</h3>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded-full">Max Strength</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Extra strength hemp gummies for enhanced relaxation. 15mg per gummy, 60 count.</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(1,120 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through">$79.99</span>
+                                <span class="text-2xl font-bold text-green-600 ml-2">$54.99</span>
+                            </div>
+                            <button class="add-to-cart-button bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW Hemp Product: Hemp Gummies 300mg (20 count) -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-blue-200 to-blue-400 flex items-center justify-center product-image-container">
+                        <img src="https://imgur.com/8DDg6Ed.jpg" alt="Hemp Gummies 300mg 20 Count" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">Hemp Gummies 300mg (20ct)</h3>
+                            <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-2 py-1 rounded-full">Sampler</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Perfect for beginners, 15mg per gummy, 20 count.</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(480 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through">$34.99</span>
+                                <span class="text-2xl font-bold text-green-600 ml-2">$24.99</span>
+                            </div>
+                            <button class="add-to-cart-button bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPDATED Hemp Product: Hemp Topical Cream 1000mg (uses E1x4VJF) -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center product-image-container">
+                        <img src="https://imgur.com/E1x4VJF.jpg" alt="Kingkush Hemp Topical Cream 1000mg 2 oz" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">Hemp Topical Cream 1000mg (2 oz)</h3>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded-full">New!</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Soothing hemp-infused topical cream for targeted relief. 1000mg, 2 oz / 57g.</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(634 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through">$49.99</span>
+                                <span class="text-2xl font-bold text-green-600 ml-2">$37.99</span>
+                            </div>
+                            <button class="add-to-cart-button bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW Hemp Product: Hemp Topical Cream 1000mg (uses E3BhK6P) -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 bg-gradient-to-br from-purple-300 to-purple-500 flex items-center justify-center product-image-container">
+                        <img src="https://imgur.com/E3BhK6P.jpg" alt="Kingkush Hemp Topical Cream 1000mg 57g (alternative view)" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">Hemp Topical Cream 1000mg (57g)</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">Deep Relief</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Advanced formula topical cream for targeted discomfort. 1000mg, 57g.</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(520 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through">$54.99</span>
+                                <span class="text-2xl font-bold text-green-600 ml-2">$39.99</span>
+                            </div>
+                            <button class="add-to-cart-button bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clothing Section -->
+    <section id="clothing" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Kingkush Clothing Collection</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Premium streetwear and hemp-infused apparel representing the Kingkush lifestyle.</p>
+            </div>
+
+            <!-- Hemp-Themed Apparel -->
+            <div class="mb-16">
+                <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">Hemp-Themed Collection</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Hemp Green T-Shirt -->
+                    <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                        <div class="h-64 product-image-container">
+                            <img src="https://i.imgur.com/ZOxxQCz.jpg" alt="Kingkush Hemp Tee - Green" class="product-image-thumbnail">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Hemp Tee - Green</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Premium green t-shirt with hemp leaf graphic and KINGKUSH branding</p>
+                            <div class="flex items-center mb-4">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(456 reviews)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-gray-900">$39.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hemp T-Shirt Variant 2 -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 product-image-container">
+                        <img src="https://i.imgur.com/SeEng11.jpg" alt="Kingkush Classic Tee" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Classic Tee</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Comfortable cotton tee with signature Kingkush design</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(298 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$34.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hemp T-Shirt Variant 3 -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 product-image-container">
+                        <img src="https://i.imgur.com/7FL5wlv.jpg" alt="Kingkush Premium Tee" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Premium Tee</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Premium quality t-shirt with exclusive hemp graphic</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(321 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$42.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hemp T-Shirt Variant 4 -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 product-image-container">
+                        <img src="https://i.imgur.com/zg5kaSv.jpg" alt="Kingkush Signature Tee" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Signature Tee</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Signature design t-shirt with premium hemp branding</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(189 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$39.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Women's Collection -->
+    <div class="mb-16">
+        <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">Women's Collection</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Women's Shirt -->
+            <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                <div class="h-64 product-image-container">
+                    <img src="https://i.imgur.com/rRYJgpI.jpg" alt="Women's Kingkush Tee" class="product-image-thumbnail">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Women's Kingkush Tee</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Stylish women's t-shirt with Kingkush branding</p>
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(412 reviews)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$36.99</span>
+                        <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Women's Hoodie -->
+            <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                <div class="h-64 product-image-container">
+                    <img src="https://i.imgur.com/0kQtsNm.jpg" alt="Women's Kingkush Hoodie" class="product-image-thumbnail">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Women's Kingkush Hoodie</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Comfortable women's hoodie with crown logo</p>
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(378 reviews)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$64.99</span>
+                        <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Women's Premium Tee -->
+            <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                <div class="h-64 product-image-container">
+                    <img src="https://i.imgur.com/yoOMiXt.jpg" alt="Women's Premium Tee" class="product-image-thumbnail">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Women's Premium Tee</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Premium women's t-shirt with exclusive design</p>
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(445 reviews)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-gray-900">$42.99</span>
+                        <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section id="accessories" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Kingkush Accessories</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Complete your Kingkush look with our premium accessories collection.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Mugs -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 product-image-container">
+                        <img src="https://i.imgur.com/03JuXFt.jpg" alt="Kingkush Premium Mug" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Premium Mug</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Premium ceramic mug with Kingkush branding</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(145 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$19.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hat/Cap -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 product-image-container">
+                        <img src="https://i.imgur.com/ypYf0gs.jpg" alt="Kingkush Snapback" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Snapback</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Premium snapback cap with embroidered logo</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(567 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$34.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chain/Necklace -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 product-image-container">
+                        <img src="https://i.imgur.com/0Ecsb9v.jpg" alt="Kingkush Chain" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Chain</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Premium gold-plated chain with pendant</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(234 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$89.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accessory Set -->
+                <div class="bg-white rounded-2xl shadow-lg card-hover overflow-hidden">
+                    <div class="h-64 product-image-container">
+                        <img src="https://i.imgur.com/A6B8ncL.jpg" alt="Kingkush Accessory Set" class="product-image-thumbnail">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kingkush Accessory Set</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Complete accessory bundle with premium items</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(188 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$129.99</span>
+                            <button class="add-to-cart-button bg-green-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition text-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section - Placeholder -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">About Kingkush</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Kingkush is dedicated to providing high-quality hemp products and stylish lifestyle apparel. 
+                Our commitment to purity, potency, and urban fashion sets us apart. We believe in wellness, 
+                quality, and a lifestyle that empowers you.
+            </p>
+            <p class="text-lg text-gray-700 max-w-2xl mx-auto">
+                All our hemp products are rigorously third-party lab tested to ensure the highest standards of safety and effectiveness. 
+                Our clothing line is designed for comfort and style, embodying the essence of the Kingkush brand.
+            </p>
+        </div>
+    </section>
+
+    <!-- New Support Sections -->
+    <section id="contact-us" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Contact Us</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Have questions or need assistance? Reach out to our friendly customer support team. We're here to help!
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-8 text-lg">
+                <div class="flex items-center flex-col p-6 bg-white rounded-lg shadow-md w-full md:w-1/3">
+                    <i class="fas fa-envelope text-green-600 text-3xl mb-3"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">Email Support</h3>
+                    <p class="text-gray-600">support@kingkush.com</p>
+                    <a href="mailto:support@kingkush.com" class="text-green-600 hover:underline mt-2">Send an Email</a>
+                </div>
+                <div class="flex items-center flex-col p-6 bg-white rounded-lg shadow-md w-full md:w-1/3">
+                    <i class="fas fa-phone-alt text-green-600 text-3xl mb-3"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">Phone Support</h3>
+                    <p class="text-gray-600">+1 (800) 123-4567</p>
+                    <a href="tel:+18001234567" class="text-green-600 hover:underline mt-2">Call Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="size-guide" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Size Guide</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Find your perfect fit with our comprehensive size guide for Kingkush apparel.
+            </p>
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md p-6">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chest (in)</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waist (in)</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hip (in)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">30-32</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">24-26</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">32-34</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">S</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">34-36</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">28-30</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">36-38</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">M</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">38-40</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">32-34</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">40-42</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">L</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">42-44</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">36-38</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">44-46</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XL</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">46-48</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">40-42</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">48-50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="shipping-info" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Shipping Information</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Learn about our shipping options, delivery times, and costs.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="font-semibold text-gray-900 text-xl mb-3">Domestic Shipping (Canada)</h3>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Standard Shipping: 3-7 business days ($10, Free over $75)</li>
+                        <li>Express Shipping: 1-3 business days ($25)</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="font-semibold text-gray-900 text-xl mb-3">International Shipping</h3>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Rates and times vary by country. Duties and taxes may apply.</li>
+                        <li>Please check at checkout for specific details.</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-gray-600 text-sm mt-8">Orders are typically processed within 1-2 business days.</p>
+        </div>
+    </section>
+
+    <section id="returns" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Returns & Exchanges</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Our policy for returning or exchanging products. Your satisfaction is our priority.
+            </p>
+            <div class="p-6 bg-white rounded-lg shadow-md max-w-3xl mx-auto text-left text-gray-600">
+                <p class="mb-4">
+                    We offer a <strong>30-day satisfaction guarantee</strong> on all Kingkush products. If you are not completely satisfied with your purchase, you may return it within 30 days of the delivery date for a full refund or exchange.
+                </p>
+                <h3 class="font-semibold text-gray-900 text-lg mb-2">Conditions for Returns:</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Items must be unused, unwashed, and in their original packaging with tags attached.</li>
+                    <li>Proof of purchase is required.</li>
+                    <li>Refunds will be issued to the original payment method.</li>
+                </ul>
+                <p>
+                    To initiate a return or exchange, please contact our support team at <a href="mailto:support@kingkush.com" class="text-green-600 hover:underline">support@kingkush.com</a> with your order number.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lab-results" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Lab Results & Purity</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Transparency matters. View our third-party lab results for all Kingkush hemp products.
+            </p>
+            <div class="p-6 bg-white rounded-lg shadow-md max-w-3xl mx-auto text-left text-gray-600">
+                <p class="mb-4">
+                    At Kingkush, your safety and trust are paramount. We rigorously test all our hemp products through independent, third-party laboratories. These tests ensure our products are:
+                </p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Free from heavy metals, pesticides, and harmful contaminants.</li>
+                    <li>Accurate in their cannabinoid content (e.g., CBD, THC levels).</li>
+                    <li>Consistent in quality and potency.</li>
+                </ul>
+                <p class="mb-4">
+                    You can view the Certificate of Analysis (COA) for each batch of our products by scanning the QR code on the packaging or by searching our database below.
+                </p>
+                <!-- Placeholder for a search/view mechanism for lab results -->
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <input type="text" placeholder="Enter Batch Number" class="p-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 w-full sm:w-auto">
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700 transition w-full sm:w-auto">
+                        <i class="fas fa-search mr-2"></i>Search Lab Results
+                    </button>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">For specific product COAs, please refer to the batch number on your product packaging.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+            <!-- Column 1: Brand Info -->
+            <div>
+                <div class="flex items-center mb-4">
+                    <div class="crown-icon w-8 h-8 mr-2"></div>
+                    <span class="text-2xl font-bold text-yellow-400">Kingkush</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-6">Experience the complete Kingkush lifestyle with premium hemp products and exclusive streetwear.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                </div>
+            </div>
+
+            <!-- Column 2: Hemp Products -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Hemp Products</h4>
+                <ul class="space-y-3">
+                    <li><a href="#products" class="hover:text-white transition text-sm">CBD Oils</a></li>
+                    <li><a href="#products" class="hover:text-white transition text-sm">Hemp Gummies</a></li>
+                    <li><a href="#products" class="hover:text-white transition text-sm">Topical Creams</a></li>
+                    <!-- These now link to the main products section, implying filtering or sub-sections there -->
+                    <li><a href="#products" class="hover:text-white transition text-sm">Capsules</a></li> 
+                    <li><a href="#products" class="hover:text-white transition text-sm">Pet Products</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Clothing -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Clothing</h4>
+                <ul class="space-y-3">
+                    <li><a href="#clothing" class="hover:text-white transition text-sm">Hemp Collection</a></li>
+                    <li><a href="#clothing" class="hover:text-white transition text-sm">Men's Apparel</a></li>
+                    <li><a href="#clothing" class="hover:text-white transition text-sm">Women's Collection</a></li>
+                    <li><a href="#clothing" class="hover:text-white transition text-sm">Hoodies & Sweatshirts</a></li>
+                    <li><a href="#clothing" class="hover:text-white transition text-sm">T-Shirts & Tanks</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Accessories -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Accessories</h4>
+                <ul class="space-y-3">
+                    <li><a href="#accessories" class="hover:text-white transition text-sm">Snapback Caps</a></li>
+                    <li><a href="#accessories" class="hover:text-white transition text-sm">Chain Necklaces</a></li>
+                    <li><a href="#accessories" class="hover:text-white transition text-sm">Coffee Mugs</a></li>
+                    <!-- These now link to the main accessories section, implying filtering or sub-sections there -->
+                    <li><a href="#accessories" class="hover:text-white transition text-sm">Limited Drops</a></li>
+                    <li><a href="#accessories" class="hover:text-white transition text-sm">Gift Sets</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 5: Support -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-6">Support</h4>
+                <ul class="space-y-3">
+                    <li><a href="#contact-us" class="hover:text-white transition text-sm">Contact Us</a></li>
+                    <li><a href="#size-guide" class="hover:text-white transition text-sm">Size Guide</a></li>
+                    <li><a href="#shipping-info" class="hover:text-white transition text-sm">Shipping Info</a></li>
+                    <li><a href="#returns" class="hover:text-white transition text-sm">Returns</a></li>
+                    <li><a href="#lab-results" class="hover:text-white transition text-sm">Lab Results</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500 text-sm">
+            &copy; 2025 Kingkush. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Cart Message Element -->
+    <div id="cart-message">
+        <i class="fas fa-check-circle text-white"></i>
+        <span>Item added to cart!</span>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="image-modal">
+        <button id="close-modal">&times;</button>
+        <img id="modal-image" src="" alt="Enlarged product image">
+    </div>
+
+    <script>
+        // Smooth scroll function
+        function smoothScrollTo(targetId) {
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80, // Adjust for fixed header height
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // JavaScript for Countdown Timer
+        function updateCountdown() {
+            // Set a target date/time for the offer. Here, it's set for 24 hours from now
+            const now = new Date();
+            const endDate = new Date(now.getTime() + (24 * 60 * 60 * 1000)); // 24 hours from now
+
+            const countdownInterval = setInterval(() => {
+                const currentTime = new Date().getTime();
+                const distance = endDate - currentTime;
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                if (document.getElementById("hours")) {
+                    document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                }
+                if (document.getElementById("minutes")) {
+                    document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                }
+                if (document.getElementById("seconds")) {
+                    document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+                }
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    if (document.getElementById("hours")) document.getElementById("hours").innerText = "00";
+                    if (document.getElementById("minutes")) document.getElementById("minutes").innerText = "00";
+                    if (document.getElementById("seconds")) document.getElementById("seconds").innerText = "00";
+                }
+            }, 1000);
+        }
+
+        // JavaScript for Mobile Menu Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    if (mobileMenu.style.maxHeight === '0px' || mobileMenu.style.maxHeight === '') {
+                        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                    } else {
+                        mobileMenu.style.maxHeight = "0px";
+                    }
+                });
+
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.style.maxHeight = "0px";
+                    });
+                });
+                window.addEventListener('resize', () => {
+                    if (mobileMenu.style.maxHeight !== '0px' && mobileMenu.style.maxHeight !== '') {
+                        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                    }
+                });
+            }
+
+            // --- Button Functionality ---
+
+            // Shop Collection Button
+            const shopCollectionButton = document.getElementById('shop-collection-button');
+            if (shopCollectionButton) {
+                shopCollectionButton.addEventListener('click', () => {
+                    smoothScrollTo('products');
+                });
+            }
+
+            // View Clothing Button
+            const viewClothingButton = document.getElementById('view-clothing-button');
+            if (viewClothingButton) {
+                viewClothingButton.addEventListener('click', () => {
+                    smoothScrollTo('clothing');
+                });
+            }
+
+            // Add to Cart Buttons
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+            const cartMessage = document.getElementById('cart-message');
+            let messageTimeout;
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Show the message
+                    if (cartMessage) {
+                        cartMessage.classList.add('show');
+                        // Clear any existing timeout to prevent multiple messages overlapping
+                        clearTimeout(messageTimeout); 
+                        // Hide the message after 3 seconds
+                        messageTimeout = setTimeout(() => {
+                            cartMessage.classList.remove('show');
+                        }, 3000);
+                    }
+                    // In a real application, you would add the item to a cart object/array here.
+                    console.log('Item added to cart!'); 
+                });
+            });
+
+            // --- Image Modal Functionality ---
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const closeModalButton = document.getElementById('close-modal');
+            // Select all images within product-image-container for click functionality
+            const productImages = document.querySelectorAll('.product-image-container img'); 
+
+            productImages.forEach(img => {
+                img.addEventListener('click', (event) => {
+                    modalImage.src = event.target.src; // Set modal image source to clicked image's source
+                    imageModal.classList.add('show'); // Show the modal
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                });
+            });
+
+            // Close modal functions
+            function closeModal() {
+                imageModal.classList.remove('show'); // Hide the modal
+                document.body.style.overflow = ''; // Restore background scrolling
+            }
+
+            // Close when 'X' button is clicked
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', closeModal);
+            }
+
+            // Close when clicking outside the image (on the modal overlay)
+            if (imageModal) {
+                imageModal.addEventListener('click', (event) => {
+                    // Only close if click is directly on the modal background, not on the image itself
+                    if (event.target === imageModal) {
+                        closeModal();
+                    }
+                });
+            }
+
+            // Close when Escape key is pressed
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && imageModal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
+        });
+
+        // Ensure countdown starts when the page is fully loaded
+        window.onload = updateCountdown;
+    </script>
+</body>
+</html>
